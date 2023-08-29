@@ -21,12 +21,13 @@ def block_audio(x, block_size, hop_size, fs):
     xb = np.empty((NumOfBlocks, int(block_size)))
     section = np.empty((1, block_size))
 
-    for i in range(0, int(NumOfBlocks)-1):
-        print(section)
-        section = x[(i*block_size):(i*block_size + block_size)]
-        print(section)
-        xb[i:block_size] = section
-        #xb = np.append(xb, section)
+    j = 0 # x sample index
+
+    for i in range(0, int(NumOfBlocks)):
+        section = x[j:(j+block_size)]
+        #print(section)
+        xb[[(i*hop_size)], :] = section
+        j += hop_size
         
 
     return xb
