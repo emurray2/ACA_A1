@@ -54,8 +54,10 @@ def comp_acf(input_vector, is_normalized):
     # boolean is_normalized
     
 
-    r = np.corrcoef(input_vector, input_vector)
-
+    r0 = np.correlate(input_vector, input_vector, "full")
+    r = r0[len(r0)//2:]
+    if is_normalized:
+        r = (r - np.mean(r)) / (np.std(r) * len(r))
 
     return r
 
@@ -83,5 +85,7 @@ if __name__ == "__main__":
     print(xb)
     print(timeInSec)
 
-    #r = comp_acf(tarray, False)
-    #print(r)
+    r = comp_acf(tarray, False)
+    print(r)
+    r = comp_acf(tarray, True)
+    print(r)
