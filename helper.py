@@ -39,9 +39,9 @@ def comp_acf(input_vector, is_normalized):
     # autocorrelation function
     # returns r - non-redundant (right) park of result r
     # boolean is_normalized
+    
 
-
-
+    r = np.correlate(input_vector, input_vector)
 
 
     return r
@@ -69,3 +69,6 @@ if __name__ == "__main__":
     xb, timeInSec = block_audio(tarray, tblock_size, thop, tfs)
     print(xb)
     print(timeInSec)
+
+    r = comp_acf(tarray, False)
+    print(r)
