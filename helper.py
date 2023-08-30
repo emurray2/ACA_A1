@@ -18,20 +18,21 @@ def block_audio(x, block_size, hop_size, fs):
     print(x)
 
     numSamples = int(len(x)) # total number of samples
-    NumOfBlocks = int(numSamples / hop_size - 1)
+    NumOfBlocks = int(numSamples / hop_size)
 
+    print(NumOfBlocks)
     xb = np.zeros((NumOfBlocks, int(block_size)))
-    section = np.zeros((1, block_size))
     timeInSec = np.zeros(NumOfBlocks)
 
     j = 0 # x sample index
 
     for i in range(0, int(NumOfBlocks)):
         section = x[j:(j+block_size)]
+        section = np.concatenate([section, np.zeros(block_size - section.shape[0])])
         timeInSec[i] = j
         print(section.shape)
         # xb[[(i*hop_size)], :] = section[None, :]
-        xb[i*hop_size, :] =section
+        xb[i, :] = section
         j += hop_size
         
 
