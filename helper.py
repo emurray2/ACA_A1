@@ -20,24 +20,27 @@ def block_audio(x, block_size, hop_size, fs):
 
     xb = np.empty((NumOfBlocks, int(block_size)))
     section = np.empty((1, block_size))
+    timeInSec = np.empty(NumOfBlocks)
 
     j = 0 # x sample index
 
     for i in range(0, int(NumOfBlocks)):
         section = x[j:(j+block_size)]
+        timeInSec[i] = j
         #print(section)
         xb[[(i*hop_size)], :] = section
         j += hop_size
         
 
-    return xb
-    # return  timeInSec
+    return xb, timeInSec
 
 
 def comp_acf(input_vector, is_normalized):
     # autocorrelation function
     # returns r - non-redundant (right) park of result r
     # boolean is_normalized
+
+
 
 
 
@@ -58,11 +61,11 @@ def track_pitch_acf(x, block_size, hop_size, fs):
     # returns f0
     #         timeInSec
 
-    return f0
-    return timeinSec
+    return f0, timeInSec
 
 
 if __name__ == "__main__":
 
-    xb = block_audio(tarray, tblock_size, thop, tfs)
+    xb, timeInSec = block_audio(tarray, tblock_size, thop, tfs)
     print(xb)
+    print(timeInSec)
