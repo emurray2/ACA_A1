@@ -7,6 +7,16 @@ tblock_size = 4
 thop = 2 # test hop
 tfs = 1 # test sampling frequency
 
+def generate_sine(frequency, amplitude, duration, sample_rate):
+    # frequency (in hertz, can be a float or int)
+    # duration (in seconds, can be a float or int)
+
+    # Generate time vector
+    t = np.linspace(0,duration,int(sample_rate*duration))
+    # Generate signal
+    signal = amplitude*np.sin(2*np.pi*frequency*t)
+    return signal
+
 def block_audio(x, block_size, hop_size, fs):
     # blocking function
     # x = input signal vector
